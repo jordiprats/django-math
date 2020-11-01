@@ -62,8 +62,8 @@ def sumes(file, pages, min, max, min_segona_unitat, max_segona_unitat):
         pdf.set_font('helvetica', '', 20.0)
         anterior_operacio = ''
         operacio = ''
-        for linea in range(0,14):
-            for columna in range(0, 4):
+        for columna in range(0, 4):
+            for linea in range(0,14):
                 pdf.set_xy(10.0 + (columna*50), 32.5+ (linea*17))
                 while anterior_operacio == operacio:
                     print('range: '+str(min)+'-'+str(max))
