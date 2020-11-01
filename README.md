@@ -1,4 +1,6 @@
-# generador de curses de operacions
+# generador de curses matemàtiques
+
+Generador aleatòri de sumes i restes a completar en dos minuts
 
 ## Exemples
 
