@@ -12,7 +12,8 @@ def curses():
 @click.option('--pages', default=10, help='number of pages')
 @click.option('--min', default=1, help='max int')
 @click.option('--max', default=5, help='max int')
-def restes(file, pages, min, max):
+@click.option('--multiplicador', default=1, help='multiplicador')
+def restes(file, pages, min, max, multiplicador):
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     for pagina in range(0, pages):
         pdf.add_page()
@@ -35,7 +36,7 @@ def restes(file, pages, min, max):
                         segon_numero = min
                     else:
                         segon_numero = randrange(min, primer_numero)
-                    operacio = str(primer_numero)+' - '+str(segon_numero)+' ='
+                    operacio = str(primer_numero*multiplicador)+' - '+str(segon_numero*multiplicador)+' ='
                 pdf.cell(w=0,h=0, txt=operacio, ln=0 )
                 anterior_operacio = operacio
         if pagina%4 == 0:
@@ -49,7 +50,8 @@ def restes(file, pages, min, max):
 @click.option('--max', default=6, help='max int')
 @click.option('--min-segona-unitat', default=0, help='max int segona unitat')
 @click.option('--max-segona-unitat', default=0, help='max int segona unitat')
-def sumes(file, pages, min, max, min_segona_unitat, max_segona_unitat):
+@click.option('--multiplicador', default=1, help='multiplicador')
+def sumes(file, pages, min, max, min_segona_unitat, max_segona_unitat, multiplicador):
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     for pagina in range(0, pages):
         pdf.add_page()
@@ -77,7 +79,7 @@ def sumes(file, pages, min, max, min_segona_unitat, max_segona_unitat):
                     else:
                         max_segon_numero=max
                     segon_numero = randrange(min_segon_numero, max_segon_numero)
-                    operacio = str(primer_numero)+' + '+str(segon_numero)+' ='
+                    operacio = str(primer_numero*multiplicador)+' + '+str(segon_numero*multiplicador)+' ='
                 pdf.cell(w=0,h=0, txt=operacio, ln=0 )
                 anterior_operacio = operacio
         if pagina%4 == 0:
