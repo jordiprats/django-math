@@ -140,7 +140,8 @@ def multiplicacions(file, pages, min, max, min_segona_unitat, max_segona_unitat,
 @click.option('--max2', default=300, help='max int')
 @click.option('--min3', default=10, help='min int')
 @click.option('--max3', default=100, help='max int')
-def sumes_horitzontal(file, pages, min1, max1, min2, max2, min3, max3):
+@click.option('--disable-marge-calculs', is_flag=True, default=False, help='deixa marge per calcul')
+def sumes_horitzontal(file, pages, min1, max1, min2, max2, min3, max3, disable_marge_calculs):
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     for pagina in range(0, pages):
         pdf.add_page()
@@ -154,8 +155,15 @@ def sumes_horitzontal(file, pages, min1, max1, min2, max2, min3, max3):
         anterior_operacio = ''
         operacio = ''
         for columna in range(0, 2):
-            for linea in range(0,4):
-                pdf.set_xy(10.0 + (columna*100), 32.5+ (linea*22*3))
+            if disable_marge_calculs:
+                range_files = range(0,4)
+            else:
+                range_files = range(0,11)
+            for linea in range_files:
+                if disable_marge_calculs:
+                    pdf.set_xy(10.0 + (columna*100), 32.5+ (linea*22*3))
+                else:
+                    pdf.set_xy(10.0 + (columna*100), 40 + (linea*20))
                 while anterior_operacio == operacio:
                     print('range: '+str(min)+'-'+str(max))
                     primer_numero = randrange(min1, max1)
