@@ -192,16 +192,18 @@ def restes_vertical(file, pages, min, max, disable_total_operacions):
 @click.option('--min-segona-unitat', default=0, help='max int segona unitat')
 @click.option('--max-segona-unitat', default=0, help='max int segona unitat')
 @click.option('--multiplicador', default=1, help='multiplicador')
-def multiplicacions(file, pages, min, max, min_segona_unitat, max_segona_unitat, multiplicador):
+@click.option('--disable-total-operacions', is_flag=True, default=True, help='Elimina missatge de total de operacions')
+def multiplicacions(file, pages, min, max, min_segona_unitat, max_segona_unitat, multiplicador, disable_total_operacions):
     pdf = FPDF(orientation='P', unit='mm', format='A4')
     for pagina in range(0, pages):
         pdf.add_page()
         pdf.set_font('helvetica', '', 15.0)
         pdf.set_xy(5.0, 18)
         pdf.cell(w=0,h=0, txt='Nom: ........................................................................... Data: ...................................', ln=0 )
-        pdf.set_xy(5.0, 276)
-        pdf.set_font('helvetica', '', 25.0)
-        pdf.cell(w=0,h=0, txt='Operacions fetes en 2 minuts .......................', ln=0 )
+        if not disable_total_operacions:
+            pdf.set_xy(5.0, 276)
+            pdf.set_font('helvetica', '', 25.0)
+            pdf.cell(w=0,h=0, txt='Operacions fetes en 2 minuts .......................', ln=0 )
         pdf.set_font('helvetica', '', 20.0)
         anterior_operacio = ''
         operacio = ''
