@@ -232,8 +232,8 @@ def multiplicacions(file, pages, min, max, min_segona_unitat, max_segona_unitat,
 
 @click.command()
 @click.option('--file', default='taules_multiplicar.pdf', help='output file')
-@click.option('--min', default=1, help='min int')
-@click.option('--max', default=10, help='max int')
+@click.option('--min', default=2, help='min int')
+@click.option('--max', default=30, help='max int')
 def taules_multiplicar(file, min, max):
   pdf = FPDF(orientation='P', unit='mm', format='A4')
   for pagina in range(min, int((max/2))):
@@ -300,34 +300,34 @@ operacions = {
   ]
 }
 
-def problemes_get_pregunta(min, max):
+def problemes_get_pregunta(sumes_min, sumes_max, mul_min, mul_max):
   group = random.choice(list(operacions.keys()))
 
   pregunta = random.choice(operacions[group])
 
   if group=="sumes_2":
-    return pregunta.format(randrange(min, max), randrange(min, max))
+    return pregunta.format(randrange(sumes_min, sumes_max), randrange(sumes_min, sumes_max))
   elif group=="sumes_3":
-    return pregunta.format(randrange(min, max), randrange(min, max), randrange(min, max))
+    return pregunta.format(randrange(sumes_min, sumes_max), randrange(sumes_min, sumes_max), randrange(sumes_min, sumes_max))
   elif group=="restes_primer_gros":
-    resta_gros = randrange(min+int(max/4), int(max/2))
-    resta_petit = randrange(min, resta_gros)
+    resta_gros = randrange(sumes_min+int(sumes_max/4), int(sumes_max/2))
+    resta_petit = randrange(sumes_min, resta_gros)
     return pregunta.format(resta_gros, resta_petit)
   elif group=="restes_un_sol_numero":
-    return pregunta.format(randrange(min, max))
+    return pregunta.format(randrange(sumes_min, sumes_max))
   elif group=="multiplicacions":
-    return pregunta.format(randrange(min, max), randrange(min, max))
+    return pregunta.format(randrange(mul_min, mul_max), randrange(mul_min, mul_max))
   elif group=="multiplicacions_un_sol_numero":
-    return pregunta.format(randrange(min, max))
+    return pregunta.format(randrange(mul_min, mul_max))
   elif group=="divisions_gros_primer":
-    factor_1 = randrange(min, max)
-    factor_2 = randrange(min, max)
+    factor_1 = randrange(mul_min, mul_max)
+    factor_2 = randrange(mul_min, mul_max)
     resultat = factor_1*factor_2
 
     return pregunta.format(resultat, factor_1)
   elif group=="divisions_petit_primer":
-    factor_1 = randrange(min, max)
-    factor_2 = randrange(min, max)
+    factor_1 = randrange(mul_min, mul_max)
+    factor_2 = randrange(mul_min, mul_max)
     resultat = factor_1*factor_2
 
     return pregunta.format(factor_1, resultat)
@@ -338,9 +338,11 @@ def problemes_get_pregunta(min, max):
 @click.command()
 @click.option('--file', default='problemes.pdf', help='output file')
 @click.option('--pagines', default=4, help='numero de pàgines')
-@click.option('--min', default=1, help='min int')
-@click.option('--max', default=10, help='max int')
-def problemes(file, pagines, min, max):
+@click.option('--sumes-min', default=5, help='sumes min int')
+@click.option('--sumes-max', default=150, help='sumes max int')
+@click.option('--mul-min', default=2, help='multiplicacions min int')
+@click.option('--mul-max', default=10, help='multiplicacions max int')
+def problemes(file, pagines, sumes_min, sumes_max, mul_min, mul_max):
   pdf = FPDF(orientation='P', unit='mm', format='A4')
   for pagina in range(1, int(pagines+1)):
     pdf.add_page()
@@ -351,7 +353,7 @@ def problemes(file, pagines, min, max):
     pdf.set_font('helvetica', '', 12.0)
     for linea in range(0,5):
       pdf.set_xy(10.0, 35.5+ (linea*45))
-      pdf.multi_cell(w=0,h=10, txt=str(linea+1)+'. '+problemes_get_pregunta(min, max).encode('latin-1', 'replace').decode('latin-1'))
+      pdf.multi_cell(w=0,h=10, txt=str(linea+1)+'. '+problemes_get_pregunta(sumes_min, sumes_max, mul_min, mul_max).encode('latin-1', 'replace').decode('latin-1'))
   pdf.output(file,'F')
 
 
