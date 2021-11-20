@@ -261,7 +261,7 @@ operacions = {
     "En dos incendis diferents es van cremar {} i {} hectàreas respecticament. Quantes s'han cremat en total?"
   ],
   "sumes_3": [
-    "Ahir vaig fer {}km, avui n'he fet {}km, demà en faré {}km. Quants kilometres hauré fer en total?",
+    "Ahir vaig fer {}km, avui n'he fet {}km, demà en faré {}km. Quants kilometres hauré fet en total?",
     "Al Zoo hi ha {} espècies de mamífers, {} espècies d'aus i {} espècies de ràptils. Quantes espècies hi ha?",
   ],
 
