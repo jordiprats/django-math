@@ -193,7 +193,7 @@ def restes_vertical(file, pages, min, max, disable_total_operacions):
 @click.option('--min-segona-unitat', default=0, help='max int segona unitat')
 @click.option('--max-segona-unitat', default=0, help='max int segona unitat')
 @click.option('--multiplicador', default=1, help='multiplicador')
-@click.option('--disable-total-operacions', is_flag=True, default=True, help='Elimina missatge de total de operacions')
+@click.option('--disable-total-operacions', is_flag=True, default=False, help='Elimina missatge de total de operacions')
 def multiplicacions(file, pages, min, max, min_segona_unitat, max_segona_unitat, multiplicador, disable_total_operacions):
   pdf = FPDF(orientation='P', unit='mm', format='A4')
   for pagina in range(0, pages):
@@ -270,11 +270,12 @@ operacions = {
     "Tenia {} caramels, però n'he regalat {}. Quants me'n queden?",
     "Li he donat {} sardines al gat, però només se'n ha menjat {}. Quantes en queden?",
     "Un guepart pot còrrer a {}km/h, però una zebra va {}km/h més lenta que el guepart. A quina velocitat por còrrer la zebra?",
-    "De un total de {} hectàreas, se'n han creamat {}. Quantes no s'han cremat?"
+    "De un total de {} hectàreas, se'n han creamat {}. Quantes no s'han cremat?",
+    "Tenia {} ampolles d'aigua a casa. Han vingut els meus amics i n'he donat una a cadascú i només m'en quedan {} Quants amics han vingut?",
   ],
-  "restes_un_sol_numero": [
-    "Tenia {} ampolles d'aigua a casa. Han vingut els meus amics i n'he donat una a cadascú. Quants amics han vingut?",
-  ],
+  # "restes_un_sol_numero": [
+  #   "",
+  # ],
 
   ## multiplicacions
   "multiplicacions": [
