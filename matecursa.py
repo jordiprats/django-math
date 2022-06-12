@@ -5,7 +5,7 @@ import random
 import click
 
 @click.group()
-def curses():
+def matecursa():
   pass
 
 #
@@ -459,20 +459,20 @@ def problemes(file, pagines, sumes_min, sumes_max, mul_min, mul_max):
 # main
 #
 
-curses.add_command(sumes)
-curses.add_command(sumes_horitzontal)
+matecursa.add_command(sumes)
+matecursa.add_command(sumes_horitzontal)
 
-curses.add_command(restes)
-curses.add_command(restes_vertical)
+matecursa.add_command(restes)
+matecursa.add_command(restes_vertical)
 
-curses.add_command(multiplicacions)
-curses.add_command(multiplicacions_vertical)
-curses.add_command(taules_multiplicar)
+matecursa.add_command(multiplicacions)
+matecursa.add_command(multiplicacions_vertical)
+matecursa.add_command(taules_multiplicar)
 
-curses.add_command(divisions)
+matecursa.add_command(divisions)
 
-curses.add_command(problemes)
+matecursa.add_command(problemes)
 
 if __name__ == '__main__':
-  curses()
+  matecursa()
   
