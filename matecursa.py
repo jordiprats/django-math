@@ -249,6 +249,103 @@ def taules_multiplicar(file, min, max):
         pdf.cell(w=0,h=0, txt=str(linea)+' x '+str(((pagina*2))+columna)+' = ', ln=0 )
   pdf.output(file,'F')
 
+@click.command()
+@click.option('--file', default='multiplicacions_vertical.pdf', help='output file')
+@click.option('--pages', default=10, help='number of pages')
+@click.option('--min-factor1', default=1000, help='max int')
+@click.option('--max-factor1', default=9999, help='max int')
+@click.option('--min-factor2', default=10, help='max int')
+@click.option('--max-factor2', default=99, help='max int')
+@click.option('--disable-total-operacions', is_flag=True, default=True, help='Elimina missatge de total de operacions')
+def multiplicacions_vertical(file, pages, min_factor1, max_factor1, min_factor2, max_factor2, disable_total_operacions):
+  pdf = FPDF(orientation='P', unit='mm', format='A4')
+  for pagina in range(0, pages):
+    pdf.add_page()
+    pdf.set_font('helvetica', '', 15.0)
+    pdf.set_xy(5.0, 18)
+    pdf.cell(w=0,h=0, txt='Nom: ........................................................................... Data: ...................................', ln=0 )
+    if not disable_total_operacions:
+      pdf.set_xy(5.0, 276)
+      pdf.set_font('Courier', '', 25.0)
+      pdf.cell(w=0,h=0, txt='Operacions fetes en 2 minuts .......................', ln=0 )
+    pdf.set_font('Courier', '', 20.0)
+    anterior_operacio = ''
+    operacio = ''
+    for columna in range(0, 3):
+      for linea in range(0,4):
+        primer_numero = randrange(int(min_factor1), max_factor1)
+        segon_numero = randrange(int(min_factor2), max_factor2)
+        pdf.set_xy(27.0 + (columna*65), 47.5+ (((linea*2.5)-0.4)*25))
+        pdf.cell(w=0,h=0, txt=str(primer_numero), ln=0 )
+        pdf.set_xy(25.0 + ((columna*65)-5), 47.5+ ((linea*2.5)*25))
+        pdf.set_font('helvetica', '', 15.0)
+        pdf.cell(w=0,h=0, txt="x", ln=0 )
+        pdf.set_font('Courier', '', 20.0)
+        pdf.set_xy(27.0 + (columna*65), 47.5+ ((linea*2.5)*25))
+        pdf.cell(w=0,h=0, txt="  "+str(segon_numero), ln=0 )
+        pdf.set_line_width(0.5)
+        pdf.line(
+              20.0 + (columna*65), 52.5+ ((linea*2.5)*25), 
+              45.0 + (columna*65), 52.5+ ((linea*2.5)*25)
+            )
+  pdf.output(file,'F')
+
+#
+# divisions
+#
+
+@click.command()
+@click.option('--file', default='divisions_hortizontal.pdf', help='output file')
+@click.option('--pages', default=10, help='number of pages')
+@click.option('--min-dividend', default=1000, help='min dividend')
+@click.option('--max-dividend', default=9999, help='max dividend')
+@click.option('--min-divisor', default=2, help='min divisor')
+@click.option('--max-divisor', default=9, help='max divisor')
+@click.option('--disable-marge-calculs', is_flag=True, default=True, help='deixa marge per calcul')
+def divisions(file, pages, min_dividend, max_dividend, min_divisor, max_divisor, disable_marge_calculs):
+  pdf = FPDF(orientation='P', unit='mm', format='A4')
+  for pagina in range(0, pages):
+    pdf.add_page()
+    pdf.set_font('helvetica', '', 15.0)
+    pdf.set_xy(5.0, 18)
+    pdf.cell(w=0,h=0, txt='Nom: ........................................................................... Data: ...................................', ln=0 )
+    pdf.set_xy(5.0, 276)
+    pdf.set_font('helvetica', '', 18.0)
+    anterior_operacio = ''
+    operacio = ''
+    for columna in range(0, 2):
+      if disable_marge_calculs:
+        range_files = range(0,4)
+      else:
+        range_files = range(0,11)
+      for linea in range_files:
+        if disable_marge_calculs:
+          pdf.set_xy(10.0 + (columna*100), 32.5+ (linea*22*3))
+        else:
+          pdf.set_xy(10.0 + (columna*100), 40 + (linea*20))
+        while anterior_operacio == operacio:
+          print('range: '+str(min)+'-'+str(max))
+          dividend = randrange(min_dividend, max_dividend)
+          divisor = randrange(min_divisor, max_divisor)
+          if disable_marge_calculs:
+            operacio = str(dividend)+'   '+str(divisor)
+            pdf.cell(w=0,h=0, txt=operacio, ln=0 )
+            pdf.set_line_width(0.5)
+            pdf.line(
+                  29.0 + (columna*100), 37 + (linea*22*3), 
+                  45.0 + (columna*100), 37 + (linea*22*3)
+                )
+            pdf.line(
+                  29.0 + (columna*100), 37 + (linea*22*3), 
+                  29.0 + (columna*100), 28 + (linea*22*3)
+                )
+          else:
+            operacio = str(dividend)+' / '+str(divisor)
+            pdf.cell(w=0,h=0, txt=operacio, ln=0 )
+        anterior_operacio = operacio
+  pdf.output(file,'F')
+
+
 #
 # problemes
 #
@@ -369,7 +466,10 @@ curses.add_command(restes)
 curses.add_command(restes_vertical)
 
 curses.add_command(multiplicacions)
+curses.add_command(multiplicacions_vertical)
 curses.add_command(taules_multiplicar)
+
+curses.add_command(divisions)
 
 curses.add_command(problemes)
 
