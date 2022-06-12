@@ -1,0 +1,11 @@
+site_name: matecurses
+theme: 
+    name: readthedocs
+    navigation_depth: 8
+    nav_style: dark
+    collapse_navigation: False
+
+docs_dir: docs
+
+markdown_extensions:
+    - mkdocs-click
