@@ -2,6 +2,8 @@
 
 Generador aleatòri de sumes i restes a completar en dos minuts
 
+[📚 documentació](https://jordiprats.github.io/python-matecurses/)
+
 ## Exemples
 
 ### Sumes simples
